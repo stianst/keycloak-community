@@ -64,7 +64,7 @@ requirements as given by PSD2.
 Interestingly even though PSD2 forces banks to provide open APIs it does not specify any standard way to
 achieve this. This has resulted in a number of different standards, including:
 
-* https://openid.net/wg/fapi/[Financial-grade API (FAPI))]
+* https://openid.net/wg/fapi/[Financial-grade API (FAPI)]
 * https://www.openbanking.org.uk/[Open Banking Standard]
 * https://www.berlin-group.org/psd2-access-to-bank-accounts[The Berlin Group NextGenPSD2]
 * http://www.ofx.net/[Open Financial Exchange (OFX)]
@@ -73,18 +73,8 @@ achieve this. This has resulted in a number of different standards, including:
 
 == https://openid.net/wg/fapi/[FAPI]
 
-> The FAPI WG aims to provide JSON data schemas, security and privacy recommendations and protocols to:
->
-> * Enable applications to utilize the data stored in the financial account,
-> * Enable applications to interact with the financial account, and
-> * Enable users to control the security and privacy settings.
->
-> Both commercial and investment banking account as well as insurance, and credit card accounts are to be considered.
-
-> The Financial-grade API aims to provide specific implementation guidelines for online financial services to adopt
-> by developing a REST/JSON data model protected by a highly secured OAuth profile. The Financial-grade API security
-> profile can be applied to online services in any market area that requires a higher level of security than provided
-> by standard OAuth or OpenID Connect.
+FAPI is a set of specifications developed by the FAPI WG. It is built in OAuth 2.0 and OpenID Connect to
+define a profile for the financial sector in order to provide the required level of security.
 
 ### https://openid.net/specs/openid-financial-api-part-1-ID2.html[Part 1: Read Only API Security Profile]
 
@@ -102,6 +92,10 @@ Specifies the method for an application to:
 
 ### CIBA Profile
 
+
+### Certification Program
+
+Financial-grade API (FAPI) Read/Write Profile  https://openid.net/certification/ certification.
 
 == https://www.openbanking.org.uk/[Open Banking]
 
@@ -125,3 +119,5 @@ https://www.openbanking.org.uk/providers/standards/
 * https://www.openbanking.org.uk/[Open Banking Standard]
 * https://en.wikipedia.org/wiki/Payment_Services_Directive[Payment Services Directive, WikiPedia]
 * https://openid.net/2018/07/12/the-uk-open-banking-implementation-entity-adopts-the-openid-foundation-financial-grade-api-fapi-specification-certification-program/[The UK Open Banking Implementation Entity Adopts the OpenID Foundation Financial-Grade API (FAPI) Specification & Certification Program]
+* https://medium.com/@darutk/financial-grade-api-fapi-explained-by-an-implementer-d09fcf2ff932
+* https://medium.com/@darutk/ciba-a-new-authentication-authorization-technology-in-2019-explained-by-an-implementer-d1e0ac1311b4
