@@ -1,0 +1,127 @@
+= Open Banking
+
+* *Status*: Research
+* *Author*: https://github.com/stianst[stianst]
+* *JIRA*: https://issues.jboss.org/browse/KEYCLOAK-8288[KEYCLOAK-8288]
+
+
+== PSD2
+
+The Revised Payment Services Directive (PSD2) is an EU directive aiming to regulate payment services and payment service
+providers. The aim of the directive is to increase competition, promote innovation, increase security, and increase
+collaboration between different parties.
+
+Prior to the introduction of PSD2 third parties needed add-hoc deals with banks to provide payment and account
+information services to consumers. With PSD2 banks will be required to provide access to consumers to regulated
+third party service providers through open APIs.
+
+Among other things PSD2 requires banks to enable Strong Customer Authentication (SCA) and Access to Account (XS2A).
+
+SCA requires users to be authenticated with at least 2 out of 3 factors, where the factors include:
+
+* Something the user knows (password, pin)
+* Something the user possesses (key, phone, card)
+* Something the user is (fingerprint, face recognition)
+
+XS2A requires banks to provide open APIs to enable third party providers access to consumers bank account information
+as well as initiate payments.
+
+As an example prior to PSD2 a transaction with an online merchant looks like:
+
+    [Consumer] –-> [Merchant] –-> [Acquirer] –-> [Payment network] –-> [Bank]
+
+With PSD2 the flow is much simpler and requires less intermediary parties:
+
+    [Consumer] –-> [Merchant] –-> [Bank]
+
+Within PSD2 there are a number of actors:
+
+* Account Servicing Payment Service Provider (ASPSP) - the bank
+* Payment Service Users (PSUs) - the consumer
+* Third Party Service Providers (TPSPs) - other parties accessing the consumers bank account, including:
+  - Payment Initiation Service Provider (PISP) - a third party that can initiate a payment
+  - Account Information Service Provider (AISP) - a third party that can access bank account information
+
+PISP and AISP are required to request permissions from PSUs prior to accessing. This works in a similar way to
+authenticating with social networks, such as `Google Sign-In`. A basic example where an online merchant requests
+EUR100 from a consumers account would look something like:
+
+    +------------+       +------------------+       +-----------------------------+
+    | [Checkout] | +---> | Bank information | +---> | Acme would like to withdraw |
+    +------------+       |                  |       | EUR100 from your account    |
+                         | [Account #]      |       |                             |
+                         +------------------+       | [Accept] [Reject]           |
+                                                    +-----------------------------+
+
+ASPSP where required to provide testing sandbox environments by 14 March 2019, by 14 September 2019 they are
+required to provide SCA and XS2A, as well as a number of other requirements such as auditing, insurance and
+incident reporting. Banks that are not able to meet this requirement may also provide a fall-back
+(i.e. screen scraping).
+
+In the past TSPSs where not regulated throughout EU, but they are no required to be registered and meet
+requirements as given by PSD2.
+
+Interestingly even though PSD2 forces banks to provide open APIs it does not specify any standard way to
+achieve this. This has resulted in a number of different standards, including:
+
+* https://openid.net/wg/fapi/[Financial-grade API (FAPI))]
+* https://www.openbanking.org.uk/[Open Banking Standard]
+* https://www.berlin-group.org/psd2-access-to-bank-accounts[The Berlin Group NextGenPSD2]
+* http://www.ofx.net/[Open Financial Exchange (OFX)]
+* https://polishapi.org/en/[PolishAPI]
+
+
+== https://openid.net/wg/fapi/[FAPI]
+
+> The FAPI WG aims to provide JSON data schemas, security and privacy recommendations and protocols to:
+>
+> * Enable applications to utilize the data stored in the financial account,
+> * Enable applications to interact with the financial account, and
+> * Enable users to control the security and privacy settings.
+>
+> Both commercial and investment banking account as well as insurance, and credit card accounts are to be considered.
+
+> The Financial-grade API aims to provide specific implementation guidelines for online financial services to adopt
+> by developing a REST/JSON data model protected by a highly secured OAuth profile. The Financial-grade API security
+> profile can be applied to online services in any market area that requires a higher level of security than provided
+> by standard OAuth or OpenID Connect.
+
+### https://openid.net/specs/openid-financial-api-part-1-ID2.html[Part 1: Read Only API Security Profile]
+
+An OAuth profile suitable to be used in the access of read-only financial data and similar use-cases.
+
+Specifies the method for an application to:
+
+* Obtain OAuth tokens in a secure manner for read-only access to protected data;
+* Use OpenID Connect (OIDC) to identify the customer (user); and
+* Use tokens to read protected data from REST endpoints.
+
+### Part 2: Read & Write API Security Profile
+
+### JWT Secured Authorization Response Mode for OAuth 2.0
+
+### CIBA Profile
+
+
+== https://www.openbanking.org.uk/[Open Banking]
+
+> Open Banking is the secure way to give providers access to your financial information.
+
+Open Banking builds on OAuth 2.0, OIDC and FAPI specifications.
+
+https://www.openbanking.org.uk/providers/standards/
+
+
+### Dynamic Client Registration - v3.2
+
+
+
+== Resources
+
+* https://www.slideshare.net/nat_sakimura/openid-foundation-fapi-wg-june-2017-update?ref=https://openid.net/wg/fapi/[OpenID Foundation FAPI WG: June 2017 Update]
+* https://www.pingidentity.com/en/company/blog/posts/2018/building-a-great-open-banking-standard.html[Building a great open banking standard]
+* https://www.youtube.com/watch?v=AF-8v3yG4Pc[PSD2 explained in 2 minutes]
+* https://openid.net/wg/fapi/[Financial-grade API (FAPI))]
+* https://www.openbanking.org.uk/[Open Banking Standard]
+* https://en.wikipedia.org/wiki/Payment_Services_Directive[Payment Services Directive, WikiPedia]
+* https://openid.net/2018/07/12/the-uk-open-banking-implementation-entity-adopts-the-openid-foundation-financial-grade-api-fapi-specification-certification-program/[The UK Open Banking Implementation Entity Adopts the OpenID Foundation Financial-Grade API (FAPI) Specification & Certification Program]
