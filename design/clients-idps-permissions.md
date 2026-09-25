@@ -94,7 +94,10 @@ we should enable authorization services more throughout Keycloak, where some exa
 * Can a user authenticate to a client
 * Can a user federation provider grant a role to a user
 
-We should also add support for text-based policies, where Cedar could be a great fit for Keycloak.
+We should also add support for text-based policies, where Cedar could be a great fit for Keycloak. The nice thing about
+authorization services is that we can plug-in other policy engines with a custom KC authorization policy. We don't need
+to support Cedar and Authorization Services in for example Admin endpoints directly, Admin endpoints can use authorization
+services, which in turn can invoke Cedar policies.
 
 # Policies
 
@@ -104,3 +107,15 @@ authentication policies, etc.
 
 We should really also support text-based policies, OPA is a candidate, but from the perspective of Keycloak would be
 fairly heavy. We may want to have our own language, or something.
+
+# User Profile
+
+User profile today has some mechanism to select what attributes a user or an admin can manage. It's very course grained
+and does not extend to for example user federation providers.
+
+Ideally this should be a permission thing, and not something baked into user attributes directly, so we should consider
+some way of leveraging authorization services to provider better control over what identities can read or write what
+user attributes.
+
+We also need to figure out how to extend the concept of user profiles to clients, identity providers, realm attributes, etc.
+Any place we use attributes, there should be validation and a schema associated with it. 
