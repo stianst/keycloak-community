@@ -133,3 +133,24 @@ domains/URLs, and ability to verify software statements.
 
 Other examples of client federation trust relationships include SPIFFE, Kubernetes Service Accounts, OpenID Federation,
 and potentially even DCR.
+
+# Verifiable Claims
+
+We don't have any mechanism to verify or trust claims beyond the fact that someone at some point updated the value.
+
+By introducing some concept of verified claims we can attest to the value, and provide higher level of assurance on the value of the claim.
+
+This could for instance be a custom user attribute that is mapped to a claim in a token. Where does this value come from? Who updated it? Have we verified it in any way?
+
+This can also be valid in terms of standard claims such as exp, aud, etc.. We don't strictly know how these values where set today. Did Keycloak set these values, or did some random protocol mapper set it?
+
+For verifiable credentials this part is rather important; a verifiable credential issued from untrusted user attributes is not exactly all that meaningful, which is why today we require an admin to verify the attributes prior to creating a credential from it. However, if we can attest to the attributes with a reasonable level of assurance then we can automatically create credentials from them.
+
+## Verifying claims
+
+The value of a claim can be verified by one or more humans; for instance the user could update the value, then a manager attest to it; it could also be an admin that updates the value and one or more other admins verifies it.
+
+We should also support third-party verification of claims. For example looking up a user in a database to verify their
+employment records, or sending a email to have the user verify their own email address. The latter should probably be sending a code in the email to add to the login, rather than a required action ;)
+
+Finally, we could also leverage attestetions to digitally verify a signature from a third-party to attest to the claim.
