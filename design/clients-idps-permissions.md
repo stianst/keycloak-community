@@ -2,6 +2,8 @@
 
 * Server admins - should be able to restrict globally what can be used within a realm
 * Realm admins - should be able to restrict what can or can not be used within a realm by what identities
+* Client registrator - an identity that can register clients
+* Trust registrator - an identity that can register trust relationships with Keycloak
 
 # Clients
 
@@ -119,3 +121,15 @@ user attributes.
 
 We also need to figure out how to extend the concept of user profiles to clients, identity providers, realm attributes, etc.
 Any place we use attributes, there should be validation and a schema associated with it. 
+
+# Trust Relationships
+
+Any aspect of Keycloak that delegates thrust to a third-party should be configured through a trust relationship. That
+is what we have identity providers and user federation providers for.
+
+Similarly, CIMD should be considered a trust relationship. In order to use CIMD the first thing required would be to
+configure the trust relationship. That basically boils down to a client federation trust with one or more trusted 
+domains/URLs, and ability to verify software statements. 
+
+Other examples of client federation trust relationships include SPIFFE, Kubernetes Service Accounts, OpenID Federation,
+and potentially even DCR.
